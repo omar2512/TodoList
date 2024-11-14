@@ -20,6 +20,15 @@ namespace TodoList.Infrastrucutre.DataBaseContext
         }
         public DbSet<TaskCateogory> TaskCateogory=> Set<TaskCateogory>();    
         public DbSet<TodoItems> TodoItems  => Set<TodoItems>();
-       
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Define a global filter for Products that ignores soft-deleted items
+            modelBuilder.Entity<TodoItems>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<TaskCateogory>().HasQueryFilter(p => !p.IsDeleted);
+        }
+
     }
 }

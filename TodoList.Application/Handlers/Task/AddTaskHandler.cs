@@ -27,6 +27,7 @@ namespace TodoList.Application.Handlers.Task
             {
                 #region map data
                 var mappedRecord=_mapper.Map<TodoItems>(request.AddTaskDto);
+                mappedRecord.DueDate = new DateOnly(request.AddTaskDto.DueDate.Year,request.AddTaskDto.DueDate.Month,request.AddTaskDto.DueDate.Day);
                 mappedRecord.Created=DateTime.Now;  
                 #endregion
                 #region add data to data base

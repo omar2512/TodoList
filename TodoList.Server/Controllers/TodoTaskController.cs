@@ -93,7 +93,7 @@ namespace TodoList.Server.Controllers
             try
             {
                 var GetAllTasksList = await _mediator.Send(new GetAllTaskQuery() {  });
-                if (GetAllTasksList == null || !GetAllTasksList.IsSuccess) { return Result<List<GetAllTasksDto>>.Failure("fail to delete record"); }
+                if (GetAllTasksList == null || !GetAllTasksList.IsSuccess) { return Result<List<GetAllTasksDto>>.Failure("no record found"); }
                 return Result<List<GetAllTasksDto>>.Success(GetAllTasksList.Data);
 
             }

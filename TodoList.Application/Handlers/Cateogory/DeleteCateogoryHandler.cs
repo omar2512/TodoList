@@ -30,7 +30,7 @@ namespace TodoList.Application.Handlers.Cateogory
                 if (getTaskCateogoryById == null) return Result<bool>.Failure("Record NotFound");
                 #endregion
                 #region delete
-                 _uniteOfWork.Repository<TaskCateogory>().Remove(getTaskCateogoryById);
+                getTaskCateogoryById.IsDeleted = true;
                 await _uniteOfWork.CompleteAsync();
                 #endregion
                 return Result<bool>.Success(true);  

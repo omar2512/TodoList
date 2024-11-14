@@ -36,7 +36,7 @@ namespace TodoList.Application.Handlers.Task
                 taskRecord.Id = request.UpdateTaskDto.Id;   
                 taskRecord.TaskDescription= request.UpdateTaskDto.TaskDescription;
                 taskRecord.IsCompleted=request.UpdateTaskDto.IsCompleted;
-                taskRecord.DueDate= request.UpdateTaskDto.DueDate;
+                taskRecord.DueDate = new DateOnly(request.UpdateTaskDto.DueDate.Year, request.UpdateTaskDto.DueDate.Month, request.UpdateTaskDto.DueDate.Day);
                 taskRecord.DueTime=request.UpdateTaskDto.DueTime;
                 taskRecord.TaskTitle= request.UpdateTaskDto.TaskTitle;  
                 taskRecord.Updated=DateTime.Now;

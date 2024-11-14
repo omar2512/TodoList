@@ -55,14 +55,14 @@ namespace TodoList.Server.Controllers
         }
 
 
-        [HttpPost("UpdateTaskCateogory")]
+        [HttpPost("DeleteTaskCateogory")]
 
-        public async Task<Result<bool>> UpdateTaskCateogory(int Id)
+        public async Task<Result<bool>> DeleteTaskCateogory(int Id)
         {
             try
             {
-                var UpdateTaskCateogory = await _mediator.Send(new DeleteCateogoryCommand() { Id = Id });
-                if (UpdateTaskCateogory == null || !UpdateTaskCateogory.IsSuccess) { return Result<bool>.Failure("fail to delete record"); }
+                var DeleteTaskCateogory = await _mediator.Send(new DeleteCateogoryCommand() { Id = Id });
+                if (DeleteTaskCateogory == null || !DeleteTaskCateogory.IsSuccess) { return Result<bool>.Failure("fail to delete record"); }
                 return Result<bool>.Success(true);
 
             }

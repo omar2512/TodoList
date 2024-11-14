@@ -13,8 +13,10 @@ namespace TodoList.Application.Dtos.Task
         public string TaskTitle { get; set; }
         public string TaskDescription { get; set; }
         public bool IsCompleted { get; set; }
-        public DateOnly DueDate { get; set; }
+        public DateTime DueDate { get; set; }
         public string DueTime { get; set; }
+        public int TaskCateogoryId { get; set; }
+        
         public PriorityLevel Priority { get; set; }
     }
 }
