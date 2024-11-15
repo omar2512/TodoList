@@ -16,11 +16,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
 
     AppComponent,
-    InputTextModule,
-    PasswordModule,
-    ButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
     UserregisterComponent,
     LoginComponent,
     TaskformComponent,
@@ -28,7 +23,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   
   ],
   imports: [
-    BrowserModule, HttpClientModule
+    BrowserModule, HttpClientModule, InputTextModule,
+    PasswordModule,
+    ButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
