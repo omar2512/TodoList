@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Serilog.Formatting.Compact;
+using Serilog;
 using System.Text;
 using TodoList.Application;
 using TodoList.Infrastrucutre;
@@ -18,7 +20,17 @@ namespace TodoList.Server
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            // log to elastic centralize logging from diffrint service 
+            var logger = new LoggerConfiguration()
+                               .ReadFrom.Configuration(builder.Configuration)
+                               .Enrich.FromLogContext()
+                               .WriteTo.Console(new CompactJsonFormatter())
+                               .WriteTo.Elasticsearch(new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri("http://localhost:9200"))
+                               {
+                                   AutoRegisterTemplate = true,
+                               })
+                               .CreateLogger();
+            builder.Host.UseSerilog(logger);
             // Add services to the container.
 
             builder.Services.AddControllers();

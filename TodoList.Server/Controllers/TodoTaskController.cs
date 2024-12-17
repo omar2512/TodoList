@@ -17,9 +17,11 @@ namespace TodoList.Server.Controllers
     public class TodoTaskController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public TodoTaskController(IMediator mediator)
+        private readonly ILogger<TodoTaskController> _logger;
+        public TodoTaskController(IMediator mediator, ILogger<TodoTaskController> logger)
         {
                 _mediator = mediator;   
+                _logger = logger;  
         }
         [HttpPost("AddTask")]
 
@@ -27,6 +29,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("AddTask");
                 var AddTask=await _mediator.Send(new AddTaskCommand() { AddTaskDto=request}); 
                 if (AddTask == null || !AddTask.IsSuccess ) { return Result<bool>.Failure("fail to add record"); }
                 return Result<bool>.Success(true);
@@ -43,6 +46,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("UpdateTask");
                 var UpdateTask = await _mediator.Send(new UpdateTaskCommand() { UpdateTaskDto = request });
                 if (UpdateTask == null || !UpdateTask.IsSuccess) { return Result<bool>.Failure("fail to update record"); }
                 return Result<bool>.Success(true);
@@ -61,6 +65,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("UpdateTask");
                 var DeleteTask = await _mediator.Send(new DeleteTaskCommand() { Id = Id });
                 if (DeleteTask == null || !DeleteTask.IsSuccess) { return Result<bool>.Failure("fail to delete record"); }
                 return Result<bool>.Success(true);
@@ -78,6 +83,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("GetTaskByTask");
                 var TaskRecord = await _mediator.Send(new GetTaskByIdQuery() { Id = Id });
                 if (TaskRecord == null || !TaskRecord.IsSuccess) { return Result<GetTaskByIdDto>.Failure("record not found"); }
                 return Result<GetTaskByIdDto>.Success(TaskRecord.Data);
@@ -94,6 +100,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("GetAllTasks");
                 var GetAllTasksList = await _mediator.Send(new GetAllTaskQuery() {  });
                 if (GetAllTasksList == null || !GetAllTasksList.IsSuccess) { return Result<List<GetAllTasksDto>>.Failure("no record found"); }
                 return Result<List<GetAllTasksDto>>.Success(GetAllTasksList.Data);

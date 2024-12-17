@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Server", "TodoList
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "todolist.client", "todolist.client\todolist.client.esproj", "{702F423E-F332-496D-9036-AA7FFCDC8EB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Domain", "TodoListcore\TodoList.Domain.csproj", "{0F9BA2C9-8808-42EA-8502-7D48E55C66BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Domain", "TodoListcore\TodoList.Domain.csproj", "{0F9BA2C9-8808-42EA-8502-7D48E55C66BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Infrastrucutre", "TodoList.Infrastrucutre\TodoList.Infrastrucutre.csproj", "{929BDDC8-DA60-4AAA-A478-D2A475875C63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Infrastrucutre", "TodoList.Infrastrucutre\TodoList.Infrastrucutre.csproj", "{929BDDC8-DA60-4AAA-A478-D2A475875C63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Application", "TodoList.Application\TodoList.Application.csproj", "{D1730A29-6113-450E-B0F3-A8D2CB424311}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoList.Application", "TodoList.Application\TodoList.Application.csproj", "{D1730A29-6113-450E-B0F3-A8D2CB424311}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -17,10 +17,12 @@ namespace TodoList.Server.Controllers
     [ApiController]
     public class TaskCateogoriesController : ControllerBase
     {
+        private readonly ILogger<TaskCateogoriesController> _logger;
         private readonly IMediator _mediator;
-        public TaskCateogoriesController(IMediator mediator)
+        public TaskCateogoriesController(IMediator mediator, ILogger<TaskCateogoriesController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
         [HttpPost("AddCateogory")]
 
@@ -28,6 +30,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("AddCateogory");
                 var AddCateogory = await _mediator.Send(new AddCateogoryCommand() { AddCateogoryDto = request });
                 if (AddCateogory == null || !AddCateogory.IsSuccess) { return Result<bool>.Failure("fail to add record"); }
                 return Result<bool>.Success(true);
@@ -45,6 +48,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("UpdateTaskCateogogry");
                 var UpdateTaskCateogogry = await _mediator.Send(new UpdateCateogoryCommand() { UpdateCateogoryDto = request });
                 if (UpdateTaskCateogogry == null || !UpdateTaskCateogogry.IsSuccess) { return Result<bool>.Failure("fail to update record"); }
                 return Result<bool>.Success(true);
@@ -63,6 +67,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("DeleteTaskCateogory");
                 var DeleteTaskCateogory = await _mediator.Send(new DeleteCateogoryCommand() { Id = Id });
                 if (DeleteTaskCateogory == null || !DeleteTaskCateogory.IsSuccess) { return Result<bool>.Failure("fail to delete record"); }
                 return Result<bool>.Success(true);
@@ -80,6 +85,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("GetTaskCateogogryByTask ");
                 var GetTaskCateogogryByTask = await _mediator.Send(new GetCateogoryTaskByIdQuery() { Id = Id });
                 if (GetTaskCateogogryByTask == null || !GetTaskCateogogryByTask.IsSuccess) { return Result<GetCateogoryByIdDto>.Failure("record not found"); }
                 return Result<GetCateogoryByIdDto>.Success(GetTaskCateogogryByTask.Data);
@@ -96,6 +102,7 @@ namespace TodoList.Server.Controllers
         {
             try
             {
+                _logger.LogInformation("GetAllTaskCateogories");
                 var GetAllTaskCateogoryList = await _mediator.Send(new GetAllCateogiesQuery() { });
                 if (GetAllTaskCateogoryList == null || !GetAllTaskCateogoryList.IsSuccess) { return Result<List<GetAllCateogoriesDto>>.Failure("fail to delete record"); }
                 return Result<List<GetAllCateogoriesDto>>.Success(GetAllTaskCateogoryList.Data);

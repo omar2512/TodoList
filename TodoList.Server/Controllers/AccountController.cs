@@ -18,11 +18,13 @@ namespace TodoList.Server.Controllers
         private readonly JwtService _jwtService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _singInManager;
-        public AccountController(JwtService jwtService, UserManager<User> userManager, SignInManager<User> singInManager)
+        private readonly ILogger<AccountController> _logger;
+        public AccountController(JwtService jwtService, UserManager<User> userManager, SignInManager<User> singInManager, ILogger<AccountController> logger)
         {
             _jwtService = jwtService ?? throw new NullReferenceException(nameof(jwtService));
             _userManager = userManager ?? throw new NullReferenceException(nameof(userManager));
             _singInManager = singInManager ?? throw new NullReferenceException(nameof(singInManager));
+            _logger = logger;   
         }
 
 
@@ -30,7 +32,7 @@ namespace TodoList.Server.Controllers
 
         public async Task<ActionResult<UserDto>> Login(LoginDto userDto)
         {
-
+            _logger.LogInformation("login user");
             var user = await _userManager.FindByEmailAsync(userDto.Email!);
             if (user is null) return Unauthorized("Invalid Email or Password");
             if (user.EmailConfirmed == false) return Unauthorized("Email is not confirmed");
@@ -43,6 +45,7 @@ namespace TodoList.Server.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
+            _logger.LogInformation("register user");
             if (await CheckEmailExistAync(dto.Email!)) return BadRequest($"An existing account email address {dto.Email}, please use another email address");
             var userToAdd = new User
             {
@@ -58,15 +61,7 @@ namespace TodoList.Server.Controllers
             // return Ok($"account with email {dto.Email} has been created succefully");
         }
 
-        [Authorize]
-        [HttpPost("refresh-token")]
-        public async Task<ActionResult<UserDto>> RefreshToken()
-        {
-            string email = User.FindFirst(ClaimTypes.Email)!.Value;
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null) return Unauthorized("faild to refresh token");
-            return CreateApplicationUserDto(user!);
-        }
+      
         #region check email exist
         private async Task<bool> CheckEmailExistAync(string Email)
         {
